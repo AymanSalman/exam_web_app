@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exam-web-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: exam-web-app
+  template:
+    metadata:
+      labels:
+        app: exam-web-app
+    spec:
+      containers:
+      - name: exam-web-app
+        image: salmanayman/exam-web-app:v1
+        ports:
+        - containerPort: 8017
+        env:
+        - name: MY_WEB_APP_STATUS
+          valueFrom:
+            secretKeyRef:
+              name: mywebapp-secret
+              key: MY_WEB_APP_STATUS
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: exam-web-app-service
+spec:
+  selector:
+    app: exam-web-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8017
+  type: LoadBalancer
