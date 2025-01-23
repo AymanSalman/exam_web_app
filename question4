@@ -1,0 +1,9 @@
+דבר ראשון, אנחנו חיבים ליצור קוד סודי לאפליקציה :
+kubectl create secret generic mywebapp-secret --from-literal=MY_WEB_APP_STATUS="1122"
+
+אחר כך אנחנו נייצר קובץ deployment.yaml
+הקובץ נוצר והעליתי ליד קובץ Dockerfile
+
+להחיל את ההפצה על אקלוסטר Kubernetes:
+kubectl apply -f exam-web-app-deployment.yaml
+
